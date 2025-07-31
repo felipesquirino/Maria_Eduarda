@@ -4,277 +4,131 @@
   <meta charset="UTF-8" />
   <title>Maria Eduarda - Definições</title>
   <style>
-    :root {
-      --cor-principal: #d6336c;
-      --cor-texto: #222;
-      --cor-secundaria: #2a2a2a;
-      --fundo-card: rgba(255, 255, 255, 0.85);
-      --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     html, body {
       height: 100%;
-      font-family: var(--fonte-principal);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow: hidden;
       background: #fff;
     }
-
     .container {
       display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
       height: 100vh;
       width: 100vw;
-      position: relative;
+      scroll-behavior: smooth;
     }
-
     .card {
-      flex: 0 0 100%;
+      flex: none;
+      scroll-snap-align: center;
+      width: 100vw;
       height: 100vh;
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-      position: absolute;
-      inset: 0;
+      padding: 40px;
+      background-color: rgba(255, 255, 255, 0.85);
+      overflow: hidden;
     }
-
-    .card.active {
-      opacity: 1;
-      z-index: 1;
-    }
-
     .card::before {
       content: "";
       position: absolute;
       inset: 0;
-      background-size: cover;
-      background-position: center;
-      opacity: 0.35;
+      background: url('https://i.imgur.com/blAh1tB.jpeg') no-repeat center center/cover; /* Link direto da imagem */
+      opacity: 0.25;
       z-index: 0;
-      transition: opacity 0.4s ease, transform 0.6s ease;
+      pointer-events: none;
+      filter: brightness(1.1);
+      transition: opacity 0.3s ease;
     }
-
     .card:hover::before {
-      opacity: 0.5;
-      transform: scale(1.05);
+      opacity: 0.4;
     }
-
-    /* Fundo individual */
-    .card-0::before { background-image: url('https://i.imgur.com/t59CCHt.jpeg'); }
-    .card-1::before { background-image: url('https://i.imgur.com/PHbaR3f.jpeg'); }
-    .card-2::before { background-image: url('https://i.imgur.com/9zoyDr4.jpeg'); }
-    .card-3::before { background-image: url('https://i.imgur.com/10cBLfO.jpeg'); }
-    .card-4::before { background-image: url('https://i.imgur.com/n2RnpLx.jpeg'); }
-    .card-5::before { background-image: url('https://i.imgur.com/djB5mHu.jpeg'); }
-    .card-6::before { background-image: url('https://i.imgur.com/WcEwZFx.jpeg'); }
-
     .content {
       position: relative;
       z-index: 1;
       max-width: 700px;
       text-align: center;
-      color: var(--cor-texto);
-      background: var(--fundo-card);
-      padding: 30px;
-      border-radius: 12px;
+      color: #222;
     }
-
     .content h1 {
       font-size: 3em;
-      color: var(--cor-principal);
+      color: #d6336c;
       margin-bottom: 0.6em;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
     }
-
     .content p {
       font-size: 1.7em;
       line-height: 1.6;
-      color: var(--cor-secundaria);
-      margin-bottom: 1.5em;
+      color: #2a2a2a;
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+      margin-bottom: 2em;
     }
-
     .maria-name {
       font-weight: 900;
       font-size: 2em;
-      color: var(--cor-principal);
+      color: #d6336c;
+      text-shadow: 2px 2px 6px rgba(214, 51, 108, 0.7);
     }
 
-    /* Botões de navegação */
-    .nav-btn {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.4);
-      color: white;
-      border: none;
-      font-size: 2em;
-      padding: 10px 15px;
-      cursor: pointer;
-      z-index: 10;
-      border-radius: 50%;
-      transition: background 0.3s;
-    }
-
-    .nav-btn:hover {
-      background: rgba(0, 0, 0, 0.7);
-    }
-
-    .prev { left: 15px; }
-    .next { right: 15px; }
-
-    /* Indicadores */
-    .indicators {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 8px;
-      z-index: 10;
-    }
-
-    .indicator {
-      width: 12px;
-      height: 12px;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 50%;
-      transition: background 0.3s;
-      cursor: pointer;
-    }
-
-    .indicator.active {
-      background: var(--cor-principal);
-    }
-
-    /* Responsividade */
-    @media (max-width: 900px) {
-      .content h1 { font-size: 2.4em; }
-      .content p { font-size: 1.4em; }
-      .maria-name { font-size: 1.7em; }
-    }
-
+    /* Ajustes para telas pequenas */
     @media (max-width: 600px) {
-      .content h1 { font-size: 2em; }
-      .content p { font-size: 1.2em; }
-      .maria-name { font-size: 1.4em; }
+      .content h1 {
+        font-size: 2.2em;
+      }
+      .content p {
+        font-size: 1.3em;
+      }
+      .maria-name {
+        font-size: 1.6em;
+      }
     }
   </style>
 </head>
 <body>
-  <button class="nav-btn prev">&#10094;</button>
-  <button class="nav-btn next">&#10095;</button>
+  <div class="container">
+    <div class="card"><div class="content">
+      <h1>Perfeição</h1>
+      <p>É quando a pessoa é igual a você, cada detalhe seu é mais lindo que o outro.</p>
+      <div class="maria-name">Nós seus detalhes, encontrei o infinito.</div>
+    </div></div>
 
-  <div class="indicators" id="indicators"></div>
+    <div class="card"><div class="content">
+      <h1>Cabelo</h1>
+      <p>Seu cabelo é espetacular, pode ter certeza que o sol tem inveja de brilhar tanto como seus lindos cabelos.</p>
+      <div class="maria-name">As estrelas perdem o brilho perto do seu cabelo.</div>
+    </div></div>
 
-  <div class="container" id="carousel">
-    <div class="card card-0 active">
-      <div class="content">
-        <h1>Bem-vinda</h1>
-        <p>Clique para avançar e descubra as palavras que descrevem você.</p>
-        <div class="maria-name">Maria Eduarda</div>
-      </div>
-    </div>
+    <div class="card"><div class="content">
+      <h1>Olhos e Boca</h1>
+      <p>Não sei o que é mais espetacular, um olhar apaixonante e uma boca dona de um lindo sorriso.</p>
+      <div class="maria-name">O seu olhar chama, e seu sorriso prende.</div>
+    </div></div>
 
-    <div class="card card-1">
-      <div class="content">
-        <h1>Perfeição</h1>
-        <p>É quando a pessoa é igual a você, cada detalhe seu é mais lindo que o outro.</p>
-        <div class="maria-name">Nos seus detalhes, encontrei o infinito.</div>
-      </div>
-    </div>
+    <div class="card"><div class="content">
+      <h1>Rosto</h1>
+      <p>Você é uma mulher maravilhosa de bonita, nunca conheci uma mulher igual.</p>
+      <div class="maria-name">Obra prima que o mundo precisava.</div>
+    </div></div>
 
-    <div class="card card-2">
-      <div class="content">
-        <h1>Cabelo</h1>
-        <p>Seu cabelo é espetacular, pode ter certeza que o sol tem inveja de brilhar tanto como seus lindos cabelos.</p>
-        <div class="maria-name">As estrelas perdem o brilho perto do seu cabelo.</div>
-      </div>
-    </div>
+    <div class="card"><div class="content">
+      <h1>Corpo</h1>
+      <p>Um corpo maravilhoso, cada curva é um detalhe que deixa muita gente com inveja.</p>
+      <div class="maria-name">As curvas do seu corpo, desenha a perfeição.</div>
+    </div></div>
 
-    <div class="card card-3">
-      <div class="content">
-        <h1>Olhos e Boca</h1>
-        <p>Não sei o que é mais espetacular, um olhar apaixonante ou um sorriso que ilumina tudo.</p>
-        <div class="maria-name">O seu olhar chama, e seu sorriso prende.</div>
-      </div>
-    </div>
-
-    <div class="card card-4">
-      <div class="content">
-        <h1>Rosto</h1>
-        <p>Você é uma mulher maravilhosa de bonita, nunca conheci uma mulher igual.</p>
-        <div class="maria-name">Obra-prima que o mundo precisava.</div>
-      </div>
-    </div>
-
-    <div class="card card-5">
-      <div class="content">
-        <h1>Corpo</h1>
-        <p>Um corpo maravilhoso, cada curva é um detalhe que deixa muita gente com inveja.</p>
-        <div class="maria-name">As curvas do seu corpo desenham a perfeição.</div>
-      </div>
-    </div>
-
-    <div class="card card-6">
-      <div class="content">
-        <h1>Você</h1>
-        <p>Uma mulher incrível que a cada segundo que passa faz eu me encantar mais por você.</p>
-        <div class="maria-name">Nada em você é simples, tudo é extraordinário.</div>
-      </div>
-    </div>
+    <div class="card"><div class="content">
+      <h1>Você</h1>
+      <p>Uma mulher incrível que a cada segundo que passa faz eu me encantar mais por você, saiba que eu faço o que for preciso para te ver bem e feliz!!</p>
+      <div class="maria-name">Nada em você é simples, tudo é extraordinário.</div>
+    </div></div>
   </div>
-
-  <script>
-    const cards = document.querySelectorAll('.card');
-    const prevBtn = document.querySelector('.prev');
-    const nextBtn = document.querySelector('.next');
-    const indicatorsContainer = document.getElementById('indicators');
-
-    let index = 0;
-
-    // Criar indicadores
-    cards.forEach((_, i) => {
-      const dot = document.createElement('div');
-      dot.classList.add('indicator');
-      if (i === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => {
-        index = i;
-        updateCards();
-      });
-      indicatorsContainer.appendChild(dot);
-    });
-
-    const indicators = document.querySelectorAll('.indicator');
-
-    function updateCards() {
-      cards.forEach((card, i) => {
-        card.classList.toggle('active', i === index);
-      });
-      indicators.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-      });
-    }
-
-    prevBtn.addEventListener('click', () => {
-      index = (index > 0) ? index - 1 : cards.length - 1;
-      updateCards();
-    });
-
-    nextBtn.addEventListener('click', () => {
-      index = (index < cards.length - 1) ? index + 1 : 0;
-      updateCards();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') prevBtn.click();
-      if (e.key === 'ArrowRight') nextBtn.click();
-    });
-  </script>
 </body>
 </html>
