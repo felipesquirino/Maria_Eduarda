@@ -27,43 +27,56 @@
 
     .container {
       display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
+      overflow-x: hidden;
       height: 100vh;
       width: 100vw;
-      scroll-behavior: smooth;
+      position: relative;
     }
 
     .card {
       flex: 0 0 100%;
-      scroll-snap-align: center;
       height: 100vh;
-      position: relative;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 40px;
-      background-color: var(--fundo-card);
-      overflow: hidden;
+      color: white;
+    }
+
+    .card.active {
+      opacity: 1;
+      z-index: 1;
     }
 
     .card::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: url('https://i.imgur.com/blAh1tB.jpeg') no-repeat center/cover;
-      opacity: 0.25;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.35;
       z-index: 0;
-      pointer-events: none;
-      filter: brightness(1.1);
       transition: opacity 0.4s ease, transform 0.6s ease;
     }
 
     .card:hover::before {
-      opacity: 0.4;
+      opacity: 0.5;
       transform: scale(1.05);
     }
+
+    /* Fundo individual */
+    .card-0::before { background-image: url('https://i.imgur.com/t59CCHt.jpeg'); }
+    .card-1::before { background-image: url('https://i.imgur.com/PHbaR3f.jpeg'); }
+    .card-2::before { background-image: url('https://i.imgur.com/9zoyDr4.jpeg'); }
+    .card-3::before { background-image: url('https://i.imgur.com/10cBLfO.jpeg'); }
+    .card-4::before { background-image: url('https://i.imgur.com/n2RnpLx.jpeg'); }
+    .card-5::before { background-image: url('https://i.imgur.com/djB5mHu.jpeg'); }
+    .card-6::before { background-image: url('https://i.imgur.com/WcEwZFx.jpeg'); }
 
     .content {
       position: relative;
@@ -71,7 +84,9 @@
       max-width: 700px;
       text-align: center;
       color: var(--cor-texto);
-      padding: 0 20px;
+      background: var(--fundo-card);
+      padding: 30px;
+      border-radius: 12px;
     }
 
     .content h1 {
@@ -85,7 +100,6 @@
       font-size: 1.7em;
       line-height: 1.6;
       color: var(--cor-secundaria);
-      text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
       margin-bottom: 1.5em;
     }
 
@@ -93,7 +107,6 @@
       font-weight: 900;
       font-size: 2em;
       color: var(--cor-principal);
-      text-shadow: 2px 2px 6px rgba(214, 51, 108, 0.7);
     }
 
     /* Botões de navegação */
@@ -116,37 +129,44 @@
       background: rgba(0, 0, 0, 0.7);
     }
 
-    .prev {
-      left: 15px;
+    .prev { left: 15px; }
+    .next { right: 15px; }
+
+    /* Indicadores */
+    .indicators {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
     }
 
-    .next {
-      right: 15px;
+    .indicator {
+      width: 12px;
+      height: 12px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 50%;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+
+    .indicator.active {
+      background: var(--cor-principal);
     }
 
     /* Responsividade */
     @media (max-width: 900px) {
-      .content h1 {
-        font-size: 2.4em;
-      }
-      .content p {
-        font-size: 1.4em;
-      }
-      .maria-name {
-        font-size: 1.7em;
-      }
+      .content h1 { font-size: 2.4em; }
+      .content p { font-size: 1.4em; }
+      .maria-name { font-size: 1.7em; }
     }
 
     @media (max-width: 600px) {
-      .content h1 {
-        font-size: 2em;
-      }
-      .content p {
-        font-size: 1.2em;
-      }
-      .maria-name {
-        font-size: 1.4em;
-      }
+      .content h1 { font-size: 2em; }
+      .content p { font-size: 1.2em; }
+      .maria-name { font-size: 1.4em; }
     }
   </style>
 </head>
@@ -154,79 +174,111 @@
   <button class="nav-btn prev">&#10094;</button>
   <button class="nav-btn next">&#10095;</button>
 
+  <div class="indicators" id="indicators"></div>
+
   <div class="container" id="carousel">
-    <div class="card"><div class="content">
-      <h1>Perfeição</h1>
-      <p>É quando a pessoa é igual a você, cada detalhe seu é mais lindo que o outro.</p>
-      <div class="maria-name">Nos seus detalhes, encontrei o infinito.</div>
-    </div></div>
+    <!-- Página inicial -->
+    <div class="card card-0 active">
+      <div class="content">
+        <h1>Bem-vinda</h1>
+        <p>Clique para avançar e descubra as palavras que descrevem você.</p>
+        <div class="maria-name">Maria Eduarda</div>
+      </div>
+    </div>
 
-    <div class="card"><div class="content">
-      <h1>Cabelo</h1>
-      <p>Seu cabelo é espetacular, pode ter certeza que o sol tem inveja de brilhar tanto como seus lindos cabelos.</p>
-      <div class="maria-name">As estrelas perdem o brilho perto do seu cabelo.</div>
-    </div></div>
+    <div class="card card-1">
+      <div class="content">
+        <h1>Perfeição</h1>
+        <p>É quando a pessoa é igual a você, cada detalhe seu é mais lindo que o outro.</p>
+        <div class="maria-name">Nos seus detalhes, encontrei o infinito.</div>
+      </div>
+    </div>
 
-    <div class="card"><div class="content">
-      <h1>Olhos e Boca</h1>
-      <p>Não sei o que é mais espetacular, um olhar apaixonante ou um sorriso que ilumina tudo.</p>
-      <div class="maria-name">O seu olhar chama, e seu sorriso prende.</div>
-    </div></div>
+    <div class="card card-2">
+      <div class="content">
+        <h1>Cabelo</h1>
+        <p>Seu cabelo é espetacular, pode ter certeza que o sol tem inveja de brilhar tanto como seus lindos cabelos.</p>
+        <div class="maria-name">As estrelas perdem o brilho perto do seu cabelo.</div>
+      </div>
+    </div>
 
-    <div class="card"><div class="content">
-      <h1>Rosto</h1>
-      <p>Você é uma mulher maravilhosa de bonita, nunca conheci uma mulher igual.</p>
-      <div class="maria-name">Obra-prima que o mundo precisava.</div>
-    </div></div>
+    <div class="card card-3">
+      <div class="content">
+        <h1>Olhos e Boca</h1>
+        <p>Não sei o que é mais espetacular, um olhar apaixonante ou um sorriso que ilumina tudo.</p>
+        <div class="maria-name">O seu olhar chama, e seu sorriso prende.</div>
+      </div>
+    </div>
 
-    <div class="card"><div class="content">
-      <h1>Corpo</h1>
-      <p>Um corpo maravilhoso, cada curva é um detalhe que deixa muita gente com inveja.</p>
-      <div class="maria-name">As curvas do seu corpo desenham a perfeição.</div>
-    </div></div>
+    <div class="card card-4">
+      <div class="content">
+        <h1>Rosto</h1>
+        <p>Você é uma mulher maravilhosa de bonita, nunca conheci uma mulher igual.</p>
+        <div class="maria-name">Obra-prima que o mundo precisava.</div>
+      </div>
+    </div>
 
-    <div class="card"><div class="content">
-      <h1>Você</h1>
-      <p>Uma mulher incrível que a cada segundo que passa faz eu me encantar mais por você.</p>
-      <div class="maria-name">Nada em você é simples, tudo é extraordinário.</div>
-    </div></div>
+    <div class="card card-5">
+      <div class="content">
+        <h1>Corpo</h1>
+        <p>Um corpo maravilhoso, cada curva é um detalhe que deixa muita gente com inveja.</p>
+        <div class="maria-name">As curvas do seu corpo desenham a perfeição.</div>
+      </div>
+    </div>
+
+    <div class="card card-6">
+      <div class="content">
+        <h1>Você</h1>
+        <p>Uma mulher incrível que a cada segundo que passa faz eu me encantar mais por você.</p>
+        <div class="maria-name">Nada em você é simples, tudo é extraordinário.</div>
+      </div>
+    </div>
   </div>
 
   <script>
-    const container = document.getElementById('carousel');
     const cards = document.querySelectorAll('.card');
     const prevBtn = document.querySelector('.prev');
     const nextBtn = document.querySelector('.next');
+    const indicatorsContainer = document.getElementById('indicators');
 
     let index = 0;
 
-    function updateScroll() {
-      container.scrollTo({
-        left: cards[index].offsetLeft,
-        behavior: 'smooth'
+    // Criar indicadores
+    cards.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.classList.add('indicator');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        index = i;
+        updateCards();
+      });
+      indicatorsContainer.appendChild(dot);
+    });
+
+    const indicators = document.querySelectorAll('.indicator');
+
+    function updateCards() {
+      cards.forEach((card, i) => {
+        card.classList.toggle('active', i === index);
+      });
+      indicators.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
       });
     }
 
     prevBtn.addEventListener('click', () => {
       index = (index > 0) ? index - 1 : cards.length - 1;
-      updateScroll();
+      updateCards();
     });
 
     nextBtn.addEventListener('click', () => {
       index = (index < cards.length - 1) ? index + 1 : 0;
-      updateScroll();
+      updateCards();
     });
 
-    // Controle pelo teclado
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') prevBtn.click();
       if (e.key === 'ArrowRight') nextBtn.click();
-    });
-
-    // Atualiza o índice quando o usuário arrasta manualmente
-    container.addEventListener('scroll', () => {
-      const newIndex = Math.round(container.scrollLeft / window.innerWidth);
-      if (newIndex !== index) index = newIndex;
     });
   </script>
 </body>
