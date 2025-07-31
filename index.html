@@ -4,17 +4,27 @@
   <meta charset="UTF-8" />
   <title>Maria Eduarda - Definições</title>
   <style>
+    :root {
+      --cor-principal: #d6336c;
+      --cor-texto: #222;
+      --cor-secundaria: #2a2a2a;
+      --fundo-card: rgba(255, 255, 255, 0.85);
+      --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     html, body {
       height: 100%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: var(--fonte-principal);
       overflow: hidden;
       background: #fff;
     }
+
     .container {
       display: flex;
       overflow-x: auto;
@@ -24,80 +34,131 @@
       width: 100vw;
       scroll-behavior: smooth;
     }
+
     .card {
-      flex: none;
+      flex: 0 0 100%;
       scroll-snap-align: center;
-      width: 100vw;
       height: 100vh;
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 40px;
-      background-color: rgba(255, 255, 255, 0.85);
+      background-color: var(--fundo-card);
       overflow: hidden;
     }
+
     .card::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: url('https://i.imgur.com/blAh1tB.jpeg') no-repeat center center/cover; /* Link direto da imagem */
+      background: url('https://i.imgur.com/blAh1tB.jpeg') no-repeat center/cover;
       opacity: 0.25;
       z-index: 0;
       pointer-events: none;
       filter: brightness(1.1);
-      transition: opacity 0.3s ease;
+      transition: opacity 0.4s ease, transform 0.6s ease;
     }
+
     .card:hover::before {
       opacity: 0.4;
+      transform: scale(1.05);
     }
+
     .content {
       position: relative;
       z-index: 1;
       max-width: 700px;
       text-align: center;
-      color: #222;
+      color: var(--cor-texto);
+      padding: 0 20px;
     }
+
     .content h1 {
       font-size: 3em;
-      color: #d6336c;
+      color: var(--cor-principal);
       margin-bottom: 0.6em;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
+
     .content p {
       font-size: 1.7em;
       line-height: 1.6;
-      color: #2a2a2a;
+      color: var(--cor-secundaria);
       text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
-      margin-bottom: 2em;
+      margin-bottom: 1.5em;
     }
+
     .maria-name {
       font-weight: 900;
       font-size: 2em;
-      color: #d6336c;
+      color: var(--cor-principal);
       text-shadow: 2px 2px 6px rgba(214, 51, 108, 0.7);
     }
 
-    /* Ajustes para telas pequenas */
-    @media (max-width: 600px) {
+    /* Botões de navegação */
+    .nav-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      border: none;
+      font-size: 2em;
+      padding: 10px 15px;
+      cursor: pointer;
+      z-index: 10;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+
+    .nav-btn:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .prev {
+      left: 15px;
+    }
+
+    .next {
+      right: 15px;
+    }
+
+    /* Responsividade */
+    @media (max-width: 900px) {
       .content h1 {
-        font-size: 2.2em;
+        font-size: 2.4em;
       }
       .content p {
-        font-size: 1.3em;
+        font-size: 1.4em;
       }
       .maria-name {
-        font-size: 1.6em;
+        font-size: 1.7em;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .content h1 {
+        font-size: 2em;
+      }
+      .content p {
+        font-size: 1.2em;
+      }
+      .maria-name {
+        font-size: 1.4em;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <button class="nav-btn prev">&#10094;</button>
+  <button class="nav-btn next">&#10095;</button>
+
+  <div class="container" id="carousel">
     <div class="card"><div class="content">
       <h1>Perfeição</h1>
       <p>É quando a pessoa é igual a você, cada detalhe seu é mais lindo que o outro.</p>
-      <div class="maria-name">Nós seus detalhes, encontrei o infinito.</div>
+      <div class="maria-name">Nos seus detalhes, encontrei o infinito.</div>
     </div></div>
 
     <div class="card"><div class="content">
@@ -108,27 +169,65 @@
 
     <div class="card"><div class="content">
       <h1>Olhos e Boca</h1>
-      <p>Não sei o que é mais espetacular, um olhar apaixonante e uma boca dona de um lindo sorriso.</p>
+      <p>Não sei o que é mais espetacular, um olhar apaixonante ou um sorriso que ilumina tudo.</p>
       <div class="maria-name">O seu olhar chama, e seu sorriso prende.</div>
     </div></div>
 
     <div class="card"><div class="content">
       <h1>Rosto</h1>
       <p>Você é uma mulher maravilhosa de bonita, nunca conheci uma mulher igual.</p>
-      <div class="maria-name">Obra prima que o mundo precisava.</div>
+      <div class="maria-name">Obra-prima que o mundo precisava.</div>
     </div></div>
 
     <div class="card"><div class="content">
       <h1>Corpo</h1>
       <p>Um corpo maravilhoso, cada curva é um detalhe que deixa muita gente com inveja.</p>
-      <div class="maria-name">As curvas do seu corpo, desenha a perfeição.</div>
+      <div class="maria-name">As curvas do seu corpo desenham a perfeição.</div>
     </div></div>
 
     <div class="card"><div class="content">
       <h1>Você</h1>
-      <p>Uma mulher incrível que a cada segundo que passa faz eu me encantar mais por você, saiba que eu faço o que for preciso para te ver bem e feliz!!</p>
+      <p>Uma mulher incrível que a cada segundo que passa faz eu me encantar mais por você.</p>
       <div class="maria-name">Nada em você é simples, tudo é extraordinário.</div>
     </div></div>
   </div>
+
+  <script>
+    const container = document.getElementById('carousel');
+    const cards = document.querySelectorAll('.card');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+
+    let index = 0;
+
+    function updateScroll() {
+      container.scrollTo({
+        left: cards[index].offsetLeft,
+        behavior: 'smooth'
+      });
+    }
+
+    prevBtn.addEventListener('click', () => {
+      index = (index > 0) ? index - 1 : cards.length - 1;
+      updateScroll();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      index = (index < cards.length - 1) ? index + 1 : 0;
+      updateScroll();
+    });
+
+    // Controle pelo teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevBtn.click();
+      if (e.key === 'ArrowRight') nextBtn.click();
+    });
+
+    // Atualiza o índice quando o usuário arrasta manualmente
+    container.addEventListener('scroll', () => {
+      const newIndex = Math.round(container.scrollLeft / window.innerWidth);
+      if (newIndex !== index) index = newIndex;
+    });
+  </script>
 </body>
 </html>
